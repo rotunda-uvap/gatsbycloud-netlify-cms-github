@@ -4,7 +4,7 @@
 //
 
 import dedent = require('dedent')
-import { NowRequest, NowResponse } from '@vercel/node'
+import { GatsbyFunctionRequest, GatsbyFunctionResponse } from "gatsby"
 import { randomBytes } from 'crypto'
 import { AuthorizationCode, ModuleOptions } from 'simple-oauth2'
 
@@ -73,7 +73,7 @@ export function renderResponse(status: 'success' | 'error', content: any) {
 }
 
 /** An endpoint to start an OAuth2 authentication */
-export function auth(req: NowRequest, res: NowResponse) {
+export function auth(req: GatsbyFunctionRequest, res: GatsbyFunctionResponse) {
   const { host } = req.headers
 
   console.debug('auth host=%o', host)
@@ -91,7 +91,7 @@ export function auth(req: NowRequest, res: NowResponse) {
 }
 
 /** An endpoint to finish an OAuth2 authentication */
-export async function callback(req: NowRequest, res: NowResponse) {
+export async function callback(req: GatsbyFunctionRequest, res: GatsbyFunctionResponse) {
   try {
     const code = req.query.code as string
     const { host } = req.headers
